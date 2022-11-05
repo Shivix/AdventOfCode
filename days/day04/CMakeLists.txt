@@ -1,3 +1,3 @@
-add_executable(day4 main.cpp)
+add_executable(day04 main.cpp)
 
-target_include_directories(day4 PRIVATE ${PROJECT_SOURCE_DIR}/aoclib)
+target_include_directories(day04 PRIVATE ${PROJECT_SOURCE_DIR}/aoclib)
