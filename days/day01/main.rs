@@ -1,19 +1,14 @@
 fn main() {
-    let file_data: Vec<&str> = include_str!("input")
-        .lines()
+    let mut file_data: Vec<i32> = include_str!("input")
+        .split("\n\n")
+        .map(|elf| {
+            elf.lines()
+                .map(|calories| calories.parse::<i32>().unwrap())
+                .sum::<i32>()
+        })
         .collect();
-    let mut current: i32 = 0;
-    let mut result = Vec::<i32>::new();
-    for i in &file_data {
-        if i.is_empty() {
-            result.push(current);
-            current = 0
-        } else {
-            current += i.parse::<i32>().unwrap();
-        }
-    }
-    result.sort();
-    result.reverse();
-    println!("{}", result[0]);
-    println!("{}", result[0] + result[1] + result[2]);
+    // Sort in descending order.
+    file_data.sort_by(|a, b| b.cmp(a));
+    println!("{}", file_data[0]);
+    println!("{}", file_data.iter().take(3).sum::<i32>());
 }
