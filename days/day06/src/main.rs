@@ -1,21 +1,35 @@
 fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    let part = aoclib::parse_args(args);
     let input: Vec<char> = include_str!("../input").chars().collect();
-    for (i, packet) in input.windows(4).enumerate() {
-        let mut v = packet.to_vec();
-        v.sort();
-        v.dedup();
-        if v.len() == 4 {
+    match part {
+        Some(1) => part1(&input),
+        Some(2) => part2(&input),
+        _ => { part1(&input); part2(&input); },
+    }
+}
+
+fn part1(input: &Vec<char>) {
+    for (i, v) in input.windows(4).enumerate() {
+        let mut packet = v.to_vec();
+        packet.sort();
+        packet.dedup();
+        if packet.len() == 4 {
             println!("{}", i + 4);
             break;
         }
     }
-    for (i, packet) in input.windows(14).enumerate() {
-        let mut v = packet.to_vec();
-        v.sort();
-        v.dedup();
-        if v.len() == 14 {
+}
+
+fn part2(input: &Vec<char>) {
+    for (i, v) in input.windows(14).enumerate() {
+        let mut packet = v.to_vec();
+        packet.sort();
+        packet.dedup();
+        if packet.len() == 14 {
             println!("{}", i + 14);
             break;
         }
     }
 }
+
