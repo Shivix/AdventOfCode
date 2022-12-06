@@ -15,7 +15,7 @@ fn main() {
         }
         // Check if they overlap at all.
         if y2 >= x && y >= x2 {
-            part2 +=1;
+            part2 += 1;
         }
     });
     println!("{}", part1);
