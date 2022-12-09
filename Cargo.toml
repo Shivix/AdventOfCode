@@ -8,11 +8,11 @@ members = [
   "days/day06",
   "days/day07",
   "days/day08",
+  "days/day09",
   "aoclib",
 ]
 
 [workspace.package]
-name = "AdventOfCode"
 version = "0.1.0"
 edition = "2021"
 repository = "https://github.com/Shivix/AdventOfCode2022"
