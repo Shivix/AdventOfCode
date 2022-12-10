@@ -9,6 +9,7 @@ members = [
   "days/day07",
   "days/day08",
   "days/day09",
+  "days/day10",
   "aoclib",
 ]
 

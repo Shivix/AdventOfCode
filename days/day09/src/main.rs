@@ -6,9 +6,7 @@ fn main() {
     let mut positions = HashMap::<(i32, i32), ()>::new();
     let mut knot_pos = [(0, 0); NUM_OF_KNOTS + 1];
 
-    include_str!("../input")
-        .lines()
-        .for_each(|line| {
+    include_str!("../input").lines().for_each(|line| {
         // calculate new head position separately.
         let (direction, amount) = line.split_once(' ').unwrap();
         let amount = amount.parse::<i32>().unwrap();
@@ -21,8 +19,8 @@ fn main() {
         };
         for _ in 0..amount {
             for i in 1..=NUM_OF_KNOTS {
-                if (knot_pos[i].0 - knot_pos[i - 1].0 as i32).abs() <= 1
-                    && (knot_pos[i].1 - knot_pos[i - 1].1 as i32).abs() <= 1
+                if (knot_pos[i - 1].0 - knot_pos[i].0 as i32).abs() <= 1
+                    && (knot_pos[i - 1].1 - knot_pos[i].1 as i32).abs() <= 1
                 {
                     // Current knot does not need to move, neither will the rest.
                     break;
