@@ -1,10 +1,9 @@
 use std::collections::HashMap;
 
 fn main() {
-    // minus head
-    const NUM_OF_KNOTS: usize = 9;
+    const TAILS: usize = 9;
     let mut positions = HashMap::<(i32, i32), ()>::new();
-    let mut knot_pos = [(0, 0); NUM_OF_KNOTS + 1];
+    let mut knot_pos = [(0, 0); TAILS + 1];
 
     include_str!("input").lines().for_each(|line| {
         // calculate new head position separately.
@@ -18,7 +17,7 @@ fn main() {
             _ => panic!("invalid direction"),
         };
         for _ in 0..amount {
-            for i in 1..=NUM_OF_KNOTS {
+            for i in 1..=TAILS {
                 if (knot_pos[i - 1].0 - knot_pos[i].0 as i32).abs() <= 1
                     && (knot_pos[i - 1].1 - knot_pos[i].1 as i32).abs() <= 1
                 {
@@ -28,7 +27,7 @@ fn main() {
                 knot_pos[i].0 += (knot_pos[i - 1].0 - knot_pos[i].0).signum();
                 knot_pos[i].1 += (knot_pos[i - 1].1 - knot_pos[i].1).signum();
             }
-            positions.insert(knot_pos[NUM_OF_KNOTS], ());
+            positions.insert(knot_pos[TAILS], ());
         }
     });
     println!("{}", positions.len());
