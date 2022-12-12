@@ -1,7 +1,7 @@
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let part = aoclib::parse_args(args);
-    let input: Vec<char> = include_str!("../input").chars().collect();
+    let input: Vec<char> = include_str!("input").chars().collect();
     match part {
         Some(1) => part1(&input),
         Some(2) => part2(&input),

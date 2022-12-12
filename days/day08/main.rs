@@ -1,7 +1,7 @@
 fn main() {
     let mut part1 = 0;
     let mut part2 = 0;
-    let trees: Vec<Vec<u32>> = include_str!("../input")
+    let trees: Vec<Vec<u32>> = include_str!("input")
         .lines()
         .map(|line| {
             line.chars()

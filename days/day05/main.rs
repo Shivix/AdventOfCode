@@ -3,7 +3,7 @@ use regex::Regex;
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mut stacks = vec![Vec::<char>::new(); 9];
-    let (crates, instructions) = include_str!("../input").split_once("\n\n").unwrap();
+    let (crates, instructions) = include_str!("input").split_once("\n\n").unwrap();
     crates.lines().rev().for_each(|line| {
         for (i, c) in line.char_indices().skip(1).step_by(4) {
             if c != ' ' {

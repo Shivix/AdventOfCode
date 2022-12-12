@@ -7,3 +7,7 @@ edition = "2021"
 
 [dependencies]
 aoclib = { path = "../../aoclib" }
+
+[[bin]]
+name = "day11"
+path = "main.rs"

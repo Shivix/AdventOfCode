@@ -51,7 +51,7 @@ fn solve(cmds: &mut std::slice::Iter<'_, CmdLine>) -> Vec<i32> {
 }
 
 fn main() {
-    let line_iter = include_str!("../input").lines();
+    let line_iter = include_str!("input").lines();
     let commands = parse(line_iter);
     let result = solve(&mut commands.iter());
     println!("{}", result.iter().filter(|&&x| x < 100_000).sum::<i32>());

@@ -6,7 +6,7 @@ fn main() {
     let mut positions = HashMap::<(i32, i32), ()>::new();
     let mut knot_pos = [(0, 0); NUM_OF_KNOTS + 1];
 
-    include_str!("../input").lines().for_each(|line| {
+    include_str!("input").lines().for_each(|line| {
         // calculate new head position separately.
         let (direction, amount) = line.split_once(' ').unwrap();
         let amount = amount.parse::<i32>().unwrap();

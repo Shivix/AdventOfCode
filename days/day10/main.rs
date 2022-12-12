@@ -1,7 +1,7 @@
 fn main() {
     let mut x = 1;
     let mut result = vec![1];
-    include_str!("../input").lines().for_each(|line| {
+    include_str!("input").lines().for_each(|line| {
         result.push(x);
         if line != "noop" {
             // addx takes too ticks where first tick's x will be unchanged.

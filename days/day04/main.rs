@@ -1,7 +1,7 @@
 fn main() {
     let mut part1 = 0;
     let mut part2 = 0;
-    include_str!("../input").lines().for_each(|line| {
+    include_str!("input").lines().for_each(|line| {
         let (left_elf, right_elf) = line.split_once(',').unwrap();
         let (x, y) = left_elf.split_once('-').unwrap();
         let (x2, y2) = right_elf.split_once('-').unwrap();

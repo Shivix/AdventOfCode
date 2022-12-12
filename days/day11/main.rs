@@ -6,14 +6,26 @@ struct Monkey {
     test_divisible: i64,
 }
 
+macro_rules! operation {
+    (+ $b:literal) => {
+        |item: i64| -> i64 { item + $b }
+    };
+    (* $b:literal) => {
+        |item: i64| -> i64 { item * $b }
+    };
+    (- $b:literal) => {
+        |item: i64| -> i64 { item * item }
+    };
+}
+
 macro_rules! monkeys {
-    ($start_items:ident,$($operation:expr,$test_mod:literal,$monkey1:literal,$monkey2:literal),*) => {
+    ($start_items:ident,$($operator:tt,$operation:literal,$test_mod:literal,$monkey1:literal,$monkey2:literal);*) => {
         {
             let mut item = $start_items.iter();
             vec![ $(
                 Monkey {
                     items: item.next().unwrap().to_vec(),
-                    operation: $operation,
+                    operation: operation!($operator $operation),
                     test: |item: i64| -> usize {
                         if item % $test_mod == 0 {
                             return $monkey1;
@@ -30,7 +42,7 @@ macro_rules! monkeys {
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let part = aoclib::parse_args(args);
-    let starting_items: Vec<Vec<i64>> = include_str!("../input")
+    let starting_items: Vec<Vec<i64>> = include_str!("input")
         .lines()
         .collect::<Vec<&str>>()
         .windows(6)
@@ -45,38 +57,14 @@ fn main() {
 
     let mut monkeys = monkeys!(
         starting_items,
-        |item: i64| -> i64 { item * 5 },
-        17,
-        4,
-        7,
-        |item: i64| -> i64 { item + 3 },
-        7,
-        3,
-        2,
-        |item: i64| -> i64 { item + 7 },
-        13,
-        0,
-        7,
-        |item: i64| -> i64 { item + 5 },
-        2,
-        0,
-        2,
-        |item: i64| -> i64 { item + 2 },
-        19,
-        6,
-        5,
-        |item: i64| -> i64 { item * 19 },
-        3,
-        6,
-        1,
-        |item: i64| -> i64 { item * item },
-        5,
-        3,
-        1,
-        |item: i64| -> i64 { item + 4 },
-        11,
-        5,
-        4
+        *, 5, 17, 4, 7;
+        +, 3, 7, 3, 2;
+        +, 7, 13, 0, 7;
+        +, 5, 2, 0, 2;
+        +, 2, 19, 6, 5;
+        *, 19, 3, 6, 1;
+        -, 0, 5, 3, 1;
+        +, 4, 11, 5, 4
     );
 
     let mut inspections = [0_u128; 8];

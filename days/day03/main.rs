@@ -13,6 +13,6 @@ fn find_first_of(line: &str) -> i32 {
 }
 
 fn main() {
-    let part1: i32 = include_str!("../input").lines().map(find_first_of).sum();
+    let part1: i32 = include_str!("input").lines().map(find_first_of).sum();
     println!("{}", part1);
 }
