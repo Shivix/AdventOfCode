@@ -26,7 +26,7 @@ fn main() {
     for (i, pixel) in screen.iter().enumerate() {
         print!("{}", pixel);
         if i % 40 == 0 {
-            print!("\n")
+            println!()
         }
     }
 }

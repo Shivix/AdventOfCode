@@ -1,4 +1,4 @@
-use std::{str::Chars, cmp::Ordering};
+use std::{cmp::Ordering, str::Chars};
 
 #[derive(Debug, Eq, PartialEq, Clone)]
 enum Signal {
@@ -72,7 +72,10 @@ fn main() {
         .windows(2)
         .step_by(3)
         .map(|line| {
-            (parse_list(&mut line[0].chars()), parse_list(&mut line[1].chars()))
+            (
+                parse_list(&mut line[0].chars()),
+                parse_list(&mut line[1].chars()),
+            )
         })
         .collect();
 
@@ -83,7 +86,10 @@ fn main() {
         }
     }
 
-    let mut packets: Vec<Signal> = packets.iter().flat_map(|tup| [tup.0.clone(), tup.1.clone()].into_iter()).collect();
+    let mut packets: Vec<Signal> = packets
+        .iter()
+        .flat_map(|tup| [tup.0.clone(), tup.1.clone()].into_iter())
+        .collect();
     // Add divider packets
     packets.push(packet!([[2]]));
     packets.push(packet!([[6]]));
@@ -145,21 +151,23 @@ fn example() {
         })
         .collect();
 
-    assert_eq!(
-        test[0].0,
-        packet!([1, 1, 3, 1, 1])
-    );
-    assert_eq!(
-        test[1].0,
-        packet!([[1], [2, 3, 4]])
-    );
-    assert_eq!(
-        test[9].1,
-        packet!([[0, []]])
-    );
+    assert_eq!(test[0].0, packet!([1, 1, 3, 1, 1]));
+    assert_eq!(test[1].0, packet!([[1], [2, 3, 4]]));
+    assert_eq!(test[9].1, packet!([[0, []]]));
     assert_eq!(
         test[9].0,
-        packet!([[],[[],0,2],[9,[]],[3,[[8,4,9,1,9]],[10,3,7],1,[5,[10,0,4],[8,8,4,10,8],[6,1,3]]]])
+        packet!([
+            [],
+            [[], 0, 2],
+            [9, []],
+            [
+                3,
+                [[8, 4, 9, 1, 9]],
+                [10, 3, 7],
+                1,
+                [5, [10, 0, 4], [8, 8, 4, 10, 8], [6, 1, 3]]
+            ]
+        ])
     );
     assert!(test[0].0 < test[0].1);
     assert!(test[1].0 < test[1].1);
