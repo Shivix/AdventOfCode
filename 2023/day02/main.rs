@@ -11,10 +11,10 @@ fn main() {
     let file_data = include_str!("input");
     // example game => Game 3: 3 green, 4 red; 10 red, 2 blue, 5 green; 9 red, 3 blue, 5 green
 
-    let max_cubes = file_data.lines().map(|line| {
-        let (title, reveals) = line.split_once(": ").unwrap();
+    let max_cubes = file_data.lines().enumerate().map(|(i, line)| {
+        let reveals = line.split_once(": ").unwrap().1;
         let mut game = Game {
-            id: title.split_once(' ').unwrap().1.parse::<i32>().unwrap(),
+            id: i as i32 + 1,
             red: 0,
             green: 0,
             blue: 0,

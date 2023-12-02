@@ -10,14 +10,6 @@ int max(int a, int b) {
     return (a > b) ? a : b;
 }
 
-regex_t init_regex(const char* pattern) {
-    regex_t regex;
-    if (regcomp(&regex, pattern, REG_EXTENDED)) {
-        perror("Failed to compile regex");
-        exit(1);
-    }
-    return regex;
-}
 void copy_match_string(char* out, char* line, regmatch_t match) {
     strncpy(out, line + match.rm_so, match.rm_eo - match.rm_so);
 }
@@ -25,24 +17,22 @@ void copy_match_string(char* out, char* line, regmatch_t match) {
 int main(void) {
     FILE* file = fopen("input", "r");
     if (file == NULL) {
-        perror("Error opening file");
+        fprintf(stderr, "Failed to compile regex");
         return 1;
     }
 
-    Line line = {'\0'};
-    regex_t game_regex = init_regex("Game ([0-9]+):");
-    regex_t reveal_regex = init_regex("([0-9]+) ([a-zA-Z]+)");
     int part1 = 0;
     int part2 = 0;
+    int id = 0;
+    Line line = {'\0'};
+    regex_t regex;
+    if (regcomp(&regex, "([0-9]+) ([a-z]+)", REG_EXTENDED)) {
+        fprintf(stderr, "Failed to compile regex");
+        return 1;
+    }
 
     while (fgets(line, MAX_CHARS, file) != NULL) {
-        size_t n_id_matches = 2;
-        regmatch_t id_matches[2];
-        char match[4] = {'\0'};
-        regexec(&game_regex, line, n_id_matches, id_matches, 0);
-        copy_match_string(match, line, id_matches[1]);
-
-        int id = atoi(match);
+        ++id;
         int red = 0;
         int green = 0;
         int blue = 0;
@@ -50,7 +40,7 @@ int main(void) {
         size_t max_matches = 3;
         regmatch_t matches[3];
         char* line_pos = line;
-        while (regexec(&reveal_regex, line_pos, max_matches, matches, 0) == 0) {
+        while (regexec(&regex, line_pos, max_matches, matches, 0) == 0) {
             char colour[10] = {'\0'};
             char amount[10] = {'\0'};
             copy_match_string(amount, line_pos, matches[1]);
@@ -73,5 +63,4 @@ int main(void) {
     printf("part1: %i part2: %i", part1, part2);
 
     fclose(file);
-    return 0;
 }

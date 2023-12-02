@@ -1,6 +1,5 @@
 #include "aoclib.hpp"
 #include <vector>
-#include <array>
 #include <algorithm>
 #include <ranges>
 

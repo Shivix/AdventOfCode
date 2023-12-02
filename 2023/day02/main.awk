@@ -4,13 +4,12 @@ function max(a, b) {
 BEGIN { part1 = 0; part2 = 0 }
 {
     # Game 3: 3 green, 4 red; 10 red, 2 blue, 5 green; 9 red, 3 blue, 5 green
-    split($0, id_reveals, ": ")
-    split(id_reveals[1], game_id, " ")
-    id = game_id[2]
+    sub(/^.*: /, "", $0)
+    id = NR
     red = 0
     green = 0
     blue = 0
-    split(id_reveals[2], cubes, ", |; ")
+    split($0, cubes, ", |; ")
     for (i in cubes) {
         split(cubes[i], amount_colour, " ")
         amount = amount_colour[1]
