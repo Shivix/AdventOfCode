@@ -18,8 +18,8 @@ fn main() {
         };
         for _ in 0..amount {
             for i in 1..=TAILS {
-                if (knot_pos[i - 1].0 - knot_pos[i].0 as i32).abs() <= 1
-                    && (knot_pos[i - 1].1 - knot_pos[i].1 as i32).abs() <= 1
+                if (knot_pos[i - 1].0 - knot_pos[i].0).abs() <= 1
+                    && (knot_pos[i - 1].1 - knot_pos[i].1).abs() <= 1
                 {
                     // Current knot does not need to move, neither will the rest.
                     break;
