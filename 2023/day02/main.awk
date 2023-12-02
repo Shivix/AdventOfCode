@@ -1,0 +1,31 @@
+function max(a, b) {
+    return a > b ? a : b
+}
+BEGIN { part1 = 0; part2 = 0 }
+{
+    # Game 3: 3 green, 4 red; 10 red, 2 blue, 5 green; 9 red, 3 blue, 5 green
+    split($0, id_reveals, ": ")
+    split(id_reveals[1], game_id, " ")
+    id = game_id[2]
+    red = 0
+    green = 0
+    blue = 0
+    split(id_reveals[2], cubes, ", |; ")
+    for (i in cubes) {
+        split(cubes[i], amount_colour, " ")
+        amount = amount_colour[1]
+        colour = amount_colour[2]
+        if (colour == "red") {
+            red = max(red, amount)
+        } else if (colour == "green") {
+            green = max(green, amount)
+        } else if (colour == "blue") {
+            blue = max(blue, amount)
+        }
+    }
+    if (red <= 12 && green <= 13 && blue <= 14) {
+        part1 += id
+    }
+    part2 += red * green * blue
+}
+END { print part1, part2 }
