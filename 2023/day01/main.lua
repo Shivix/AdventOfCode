@@ -29,3 +29,4 @@ end
 
 print(result)
 file:close()
+-- lua -e 'result=0 for line in io.lines() do line=string.gsub(line, "%a", "") result=result+tonumber(line:sub(1,1)..line:sub(-1)) end print(result)'
