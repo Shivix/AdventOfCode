@@ -1,5 +1,3 @@
-use regex::Regex;
-
 #[test]
 fn test_line_parse() {
     let example_line = "Card   1: 95 11  5  9  3 72 87 | 94 72 74 98 23 57 62 14 30  3 73 49";
@@ -26,23 +24,18 @@ fn score(matches: usize) -> usize {
 
 fn parse_card(card_data: &str) -> usize {
     let (lhs, rhs) = card_data.split_once('|').unwrap();
-    let regex = Regex::new("[0-9]+( |$)").unwrap();
-    regex
-        .find_iter(lhs)
+    lhs.split_whitespace()
+        .skip(2)
         .map(|elem| {
-            let winning_number = elem.as_str().trim().parse::<usize>().unwrap();
-            regex.find_iter(rhs).fold(0, |acc, elem| {
-                let number = elem.as_str().trim().parse::<usize>().unwrap();
-                if winning_number == number {
-                    return acc + 1;
-                }
-                acc
+            let winning_number = elem.trim().parse::<usize>().unwrap();
+            rhs.split_whitespace().fold(0, |acc, elem| {
+                let number = elem.trim().parse::<usize>().unwrap();
+                acc + (winning_number == number) as usize
             })
         })
         .sum()
 }
 
-#[derive(Clone)]
 struct Card {
     matches: usize,
     copies: usize,
