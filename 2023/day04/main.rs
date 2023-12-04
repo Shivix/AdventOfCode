@@ -21,28 +21,28 @@ fn test_score() {
 }
 
 fn score(matches: usize) -> usize {
-    if matches == 0 {
-        return 0;
-    }
-    1 << matches - 1
+    1 << matches >> 1
 }
 
 fn parse_card(card_data: &str) -> usize {
     let (lhs, rhs) = card_data.split_once('|').unwrap();
     let regex = Regex::new("[0-9]+( |$)").unwrap();
-    let winning_numbers: Vec<usize> = regex
+    regex
         .find_iter(lhs)
-        .map(|elem| elem.as_str().trim().parse::<usize>().unwrap())
-        .collect();
-    regex.find_iter(rhs).fold(0, |acc, elem| {
-        let number = elem.as_str().trim().parse::<usize>().unwrap();
-        if winning_numbers.contains(&number) {
-            return acc + 1;
-        }
-        acc
-    })
+        .map(|elem| {
+            let winning_number = elem.as_str().trim().parse::<usize>().unwrap();
+            regex.find_iter(rhs).fold(0, |acc, elem| {
+                let number = elem.as_str().trim().parse::<usize>().unwrap();
+                if winning_number == number {
+                    return acc + 1;
+                }
+                acc
+            })
+        })
+        .sum()
 }
 
+#[derive(Clone)]
 struct Card {
     matches: usize,
     copies: usize,
@@ -60,15 +60,12 @@ fn main() {
     let part1 = cards.iter().fold(0, |acc, card| acc + score(card.matches));
 
     for i in 0..cards.len() {
-        for _ in 1..=cards[i].copies {
-            for j in 1..=cards[i].matches {
-                if i + j >= cards.len() {
-                    break;
-                }
-                cards[i + j].copies += 1;
-            }
+        let Card { matches, copies } = cards[i];
+        for next_card in cards.iter_mut().skip(i + 1).take(matches) {
+            next_card.copies += copies;
         }
     }
+
     let part2 = cards.iter().fold(0, |acc, card| acc + card.copies);
 
     println!("part1: {}, part2: {}", part1, part2);
