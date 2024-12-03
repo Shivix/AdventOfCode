@@ -5,3 +5,6 @@ cmake-build-*/
 .gdb_history
 target/
 notes.md
+
+.zig-cache
+zig-out

@@ -14,12 +14,20 @@ members = [
   "2022/day12",
   "2022/day13",
   "2022/day14",
+
   "2023/day01",
   "2023/day02",
   "2023/day03",
   "2023/day04",
+  "2023/day05",
+
+  "2024/day01",
+  "2024/day02",
+  "2024/day03",
+
   "aoclib",
 ]
+resolver = "1"
 
 [workspace.package]
 version = "0.1.0"
