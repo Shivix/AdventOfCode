@@ -1,21 +1,10 @@
 use regex::Regex;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum Cmd {
     Mul(i32, i32),
     Do,
     Dont,
-}
-
-impl PartialEq for Cmd {
-    fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
-            (Cmd::Mul(a1, b1), Cmd::Mul(a2, b2)) => a1 == a2 && b1 == b2,
-            (Cmd::Do, Cmd::Do) => true,
-            (Cmd::Dont, Cmd::Dont) => true,
-            _ => false,
-        }
-    }
 }
 
 fn parse(input: &str) -> Vec<Cmd> {
