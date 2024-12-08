@@ -96,5 +96,5 @@ MAMMMXMMMM
 MXMXAXMASX";
     let grid = input.lines().map(|line| line.chars().collect()).collect();
 
-    assert!(part1(&grid) == 18);
+    assert_eq!(part1(&grid), 18);
 }
