@@ -1,0 +1,9 @@
+[package]
+name = "day06-2024"
+edition = "2021"
+
+[dependencies]
+
+[[bin]]
+name = "day06-2024"
+path = "main.rs"
