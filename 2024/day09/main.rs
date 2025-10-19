@@ -70,19 +70,6 @@ fn shift_file_blocks(input: &Vec<Block>) -> Vec<Block> {
     result
 }
 
-fn blocks_to_string(input: &Vec<Block>) -> String {
-    input
-        .iter()
-        .map(|block| {
-            if let Block::File(id) = block {
-                id.to_string()
-            } else {
-                String::from(".")
-            }
-        })
-        .collect()
-}
-
 fn shift_file_blockset(input: &Vec<BlockSet>) -> Vec<BlockSet> {
     let mut result = input.clone();
     for block in input.iter().rev() {
@@ -153,6 +140,7 @@ fn main() {
     assert!(checksum == 6493634986625);
 }
 
+#[cfg(test)]
 macro_rules! blocks {
     ($input:expr) => {{
         $input
@@ -166,6 +154,7 @@ macro_rules! blocks {
     }};
 }
 
+#[cfg(test)]
 macro_rules! blockset {
     ($input:expr) => {{
         let mut id = 0;
