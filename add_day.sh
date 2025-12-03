@@ -4,21 +4,18 @@ year=2025
 day=${1:-$(date +%d)}
 day_name=$(printf "day%02d" "$day")
 path="$year/$day_name"
+lang="${2:-1}"
 
-if [ -d "$path" ]; then
-    echo "Day already exists"
+if [ ! -d "$path" ]; then
+    mkdir "$path"
+    mkdir "$path/src"
 fi
 
-mkdir "$path"
-cd "$path"
+if [[ "$lang" == "rust" ]]; then
+    cd $path
+    cargo init --bin
 
-cargo init --bin
-zig init
-touch "src/main.lua"
-touch "src/main.perl"
-touch "src/main.c"
-
-cat <<EOF > "Cargo.toml"
+    cat <<EOF > "Cargo.toml"
 [package]
 name = "$day_name-$year"
 edition = "2024"
@@ -29,3 +26,14 @@ edition = "2024"
 name = "$day_name-$year"
 path = "src/main.rs"
 EOF
+elif [[ "$lang" == "zig" ]]; then
+    touch "$path/src/main.zig"
+    sed -i "/addDay(b, \"2025\", \"day$(printf "%02d" $(($day - 1)))\", target, optimize);/a\
+        \ \ \ \ addDay(b, \"2025\", \"$day_name\", target, optimize);" build.zig
+elif [[ "$lang" == "lua" ]]; then
+    touch "$path/src/main.lua"
+elif [[ "$lang" == "perl" ]]; then
+    touch "$path/src/main.perl"
+elif [[ "$lang" == "c" ]]; then
+    touch "$path/src/main.c"
+fi
