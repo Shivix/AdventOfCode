@@ -5,6 +5,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     addDay(b, "2025", "day01", target, optimize);
+    addDay(b, "2025", "day02", target, optimize);
 }
 
 fn addDay(
