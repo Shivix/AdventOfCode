@@ -1,12 +1,16 @@
 set -e
 
 year=2025
-day=${1:-$(date +%d)}
+day=$1
+lang=$2
+if [[ ! "$day" =~ ^[0-9]+$ ]]; then
+    day=$(date +%d)
+    lang=$1
+fi
 day_name=$(printf "day%02d" "$day")
 path="$year/$day_name"
-lang="${2:-1}"
 
-if [ ! -d "$path" ]; then
+if [[ ! -d "$path" ]]; then
     mkdir "$path"
     mkdir "$path/src"
 fi
