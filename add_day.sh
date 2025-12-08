@@ -7,6 +7,7 @@ if [[ ! "$day" =~ ^[0-9]+$ ]]; then
     day=$(date +%d)
     lang=$1
 fi
+day="$((10#$day))"
 day_name=$(printf "day%02d" "$day")
 path="$year/$day_name"
 
