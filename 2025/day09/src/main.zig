@@ -53,7 +53,7 @@ fn parse_input(allocator: std.mem.Allocator, input: []const u8) !RedTiles {
 
 fn get_all_tiles(allocator: std.mem.Allocator, red_tiles: RedTiles) !AllTiles {
     var result = AllTiles.init(allocator);
-    for (red_tiles.items, 0..red_tiles.items.len) |tile, i| {
+    for (red_tiles.items, 0..) |tile, i| {
         // Add all red tiles.
         try result.put(tile.pos, {});
 

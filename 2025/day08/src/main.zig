@@ -62,7 +62,7 @@ fn new_junction_box(allocator: std.mem.Allocator, input: []const u8) !JunctionBo
 fn find_closest(list: JunctionBoxList, junction_box: JunctionBox) struct { usize, i64 } {
     var closest_i: usize = 0;
     var closest_distance: i64 = std.math.maxInt(i64);
-    for (list.items, 0..list.items.len) |jb, i| {
+    for (list.items, 0..) |jb, i| {
         const distance = get_distance(junction_box.pos, jb.pos);
         // Skip itself.
         if (distance == 0) {
@@ -84,7 +84,7 @@ fn find_closest(list: JunctionBoxList, junction_box: JunctionBox) struct { usize
 fn find_closest_two_unconnected(list: JunctionBoxList) struct { usize, usize } {
     var closest_pos: struct { usize, usize } = .{ 0, 0 };
     var closest_distance: i64 = std.math.maxInt(i64);
-    for (list.items, 0..list.items.len) |jb, i| {
+    for (list.items, 0..) |jb, i| {
         const r = find_closest(list, jb);
         const closest_i = r[0];
         const distance = r[1];

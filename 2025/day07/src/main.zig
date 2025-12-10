@@ -8,11 +8,11 @@ pub fn main() !void {
     const tachyon = try Tachyon.new(allocator, input);
 
     const answer = try part1(allocator, tachyon);
-    print("{d}\n", .{answer});
+    print("part1: {d}\n", .{answer});
     assert(answer == 1711);
 
     const answer2 = try part2(allocator, tachyon);
-    print("{d}\n", .{answer2});
+    print("part2: {d}\n", .{answer2});
     assert(answer2 == 36706966158365);
 }
 
@@ -94,7 +94,7 @@ fn remove_duplicates(list: *BeamList) void {
 }
 
 fn append_or_increment(allocator: std.mem.Allocator, list: *BeamList, beam: Beam) !void {
-    for (list.items, 0..list.items.len) |elem, i| {
+    for (list.items, 0..) |elem, i| {
         if (elem.pos.x == beam.pos.x and elem.pos.y == beam.pos.y) {
             list.items[i].count += beam.count;
             return;
@@ -147,7 +147,7 @@ fn part2(allocator: std.mem.Allocator, tachyon: Tachyon) !i64 {
     defer to_remove.deinit(allocator);
     var no_of_timelines: i64 = 1;
     for (0..tachyon.height) |_| {
-        for (beams.items, 0..beams.items.len) |beam, i| {
+        for (beams.items, 0..) |beam, i| {
             var new_beam = beam;
             new_beam.pos.y += 1;
             if (new_beam.pos.y >= tachyon.height) {
